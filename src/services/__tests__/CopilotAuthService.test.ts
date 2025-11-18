@@ -1,4 +1,6 @@
 // Mock modules before imports
+import { copilotAuthService } from '../CopilotAuthService'
+
 jest.mock('react-native-keychain', () => ({
   setGenericPassword: jest.fn().mockResolvedValue(true),
   getGenericPassword: jest.fn().mockResolvedValue(null),
@@ -46,8 +48,6 @@ jest.mock('../../store', () => ({
 
 // Mock fetch
 global.fetch = jest.fn()
-
-import { copilotAuthService } from '../CopilotAuthService'
 
 describe('CopilotAuthService', () => {
   beforeEach(() => {
