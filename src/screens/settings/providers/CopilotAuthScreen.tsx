@@ -84,6 +84,28 @@ export default function CopilotAuthScreen() {
     startAuth()
   }
 
+  const handleLogout = async () => {
+    Alert.alert(
+      t('settings.providers.copilot.auth.logout', { defaultValue: 'Logout' }),
+      t('settings.providers.copilot.auth.logoutConfirm', {
+        defaultValue: 'Are you sure you want to logout from GitHub Copilot?'
+      }),
+      [
+        {
+          text: t('common.cancel', { defaultValue: 'Cancel' }),
+          style: 'cancel'
+        },
+        {
+          text: t('settings.providers.copilot.auth.logout', { defaultValue: 'Logout' }),
+          style: 'destructive',
+          onPress: async () => {
+            await copilotAuthService.logout()
+          }
+        }
+      ]
+    )
+  }
+
   if (authState.isAuthenticated) {
     return (
       <SafeAreaContainer edges={['top']}>
@@ -92,18 +114,28 @@ export default function CopilotAuthScreen() {
           showBackButton
         />
         <Container>
-          <YStack gap="$4" paddingTop="$6" alignItems="center">
-            <CheckCircle2 size={64} color="$green10" />
-            <YStack gap="$2" alignItems="center">
-              <Text fontSize="$6" fontWeight="600">
-                {t('settings.providers.copilot.auth.success', { defaultValue: 'Successfully Authenticated!' })}
-              </Text>
-              <Text fontSize="$4" color="$gray11" textAlign="center">
-                {t('settings.providers.copilot.auth.successMessage', {
-                  defaultValue: 'You can now use GitHub Copilot models'
-                })}
-              </Text>
+          <YStack gap="$4" paddingTop="$6">
+            <YStack gap="$4" alignItems="center" paddingBottom="$6">
+              <CheckCircle2 size={64} color="$green10" />
+              <YStack gap="$2" alignItems="center">
+                <Text fontSize="$6" fontWeight="600">
+                  {t('settings.providers.copilot.auth.success', { defaultValue: 'Successfully Authenticated!' })}
+                </Text>
+                <Text fontSize="$4" color="$gray11" textAlign="center">
+                  {t('settings.providers.copilot.auth.successMessage', {
+                    defaultValue: 'You can now use GitHub Copilot models'
+                  })}
+                </Text>
+              </YStack>
             </YStack>
+
+            <Group>
+              <YStack padding="$4" gap="$3">
+                <Button onPress={handleLogout} color="danger">
+                  {t('settings.providers.copilot.auth.logout', { defaultValue: 'Logout' })}
+                </Button>
+              </YStack>
+            </Group>
           </YStack>
         </Container>
       </SafeAreaContainer>

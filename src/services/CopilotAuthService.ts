@@ -1,6 +1,7 @@
 import * as Keychain from 'react-native-keychain'
 
 import { loggerService } from '@/services/LoggerService'
+import { providerService } from '@/services/ProviderService'
 import store from '@/store'
 import { clearAuth, refreshTokenSuccess, setAuthError, setDeviceCode, setTokens, startAuthentication } from '@/store/copilotAuth'
 import type {
@@ -121,6 +122,14 @@ class CopilotAuthService {
         this.stopPolling()
         await this.saveTokens(data)
         store.dispatch(setTokens(data))
+
+        // Update provider's isAuthed status
+        try {
+          await providerService.updateProvider('copilot', { isAuthed: true })
+          logger.info('Updated Copilot provider auth status')
+        } catch (error) {
+          logger.error('Failed to update provider auth status', error as Error)
+        }
       } catch (error) {
         logger.error('Error polling for token', error as Error)
         this.stopPolling()
@@ -282,6 +291,15 @@ class CopilotAuthService {
       this.stopPolling()
       await Keychain.resetGenericPassword({ service: KEYCHAIN_SERVICE })
       store.dispatch(clearAuth())
+
+      // Update provider's isAuthed status
+      try {
+        await providerService.updateProvider('copilot', { isAuthed: false })
+        logger.info('Updated Copilot provider auth status')
+      } catch (error) {
+        logger.error('Failed to update provider auth status', error as Error)
+      }
+
       logger.info('Logout successful')
     } catch (error) {
       logger.error('Failed to logout', error as Error)
@@ -309,6 +327,15 @@ class CopilotAuthService {
               scope: COPILOT_OAUTH_CONFIG.scopes.join(' ')
             })
           )
+
+          // Update provider's isAuthed status
+          try {
+            await providerService.updateProvider('copilot', { isAuthed: true })
+            logger.info('Updated Copilot provider auth status')
+          } catch (error) {
+            logger.error('Failed to update provider auth status', error as Error)
+          }
+
           logger.info('Restored valid auth session')
         } else if (tokens.refreshToken) {
           // Try to refresh

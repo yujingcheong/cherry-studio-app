@@ -10,6 +10,7 @@ import { getWebSearchProviders } from '@/config/websearchProviders'
 import { storage } from '@/utils'
 
 import { assistantService } from './AssistantService'
+import { copilotAuthService } from './CopilotAuthService'
 import { loggerService } from './LoggerService'
 import { preferenceService } from './PreferenceService'
 import { providerService } from './ProviderService'
@@ -98,6 +99,9 @@ export async function runAppDataMigrations(): Promise<void> {
     // Initialize ProviderService cache (loads default provider)
     await providerService.initialize()
 
+    // Initialize Copilot auth service (restore session if available)
+    await copilotAuthService.initialize()
+
     // Ensure there is a blank topic on app restart
     await ensureBlankTopic()
 
@@ -129,6 +133,9 @@ export async function runAppDataMigrations(): Promise<void> {
 
   // Initialize ProviderService cache (loads default provider)
   await providerService.initialize()
+
+  // Initialize Copilot auth service (restore session if available)
+  await copilotAuthService.initialize()
 
   // Ensure there is a blank topic on app restart
   await ensureBlankTopic()

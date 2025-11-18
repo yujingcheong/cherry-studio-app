@@ -257,8 +257,25 @@ export default function ProviderSettingsScreen() {
           style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}>
           <YStack className="flex-1 gap-6">
-            {/* Auth Card */}
-            {/* <AuthCard provider={provider} /> */}
+            {/* Auth Card for Copilot */}
+            {provider.id === 'copilot' && (
+              <YStack className="gap-2">
+                <GroupTitle>{t('settings.providers.copilot.auth.title', { defaultValue: 'Authentication' })}</GroupTitle>
+                <Group>
+                  <PressableRow
+                    onPress={() => {
+                      navigation.navigate('CopilotAuthScreen')
+                    }}>
+                    <Text>
+                      {provider.isAuthed
+                        ? t('settings.providers.copilot.auth.manage', { defaultValue: 'Manage Authentication' })
+                        : t('settings.providers.copilot.auth.login', { defaultValue: 'Login with GitHub' })}
+                    </Text>
+                    <RowRightArrow />
+                  </PressableRow>
+                </Group>
+              </YStack>
+            )}
 
             {/* Manage Card */}
             <YStack className="gap-2">
