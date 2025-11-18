@@ -6914,6 +6914,7 @@ __metadata:
     react-dom: "npm:19.1.0"
     react-i18next: "npm:^15.4.1"
     react-native: "npm:0.81.4"
+    react-native-app-auth: "npm:^8.1.0"
     react-native-code-highlighter: "npm:^1.3.0"
     react-native-compressor: "npm:^1.13.0"
     react-native-edge-to-edge: "npm:^1.7.0"
@@ -6923,6 +6924,7 @@ __metadata:
     react-native-ios-context-menu: "npm:3.2.1"
     react-native-ios-utilities: "npm:5.2.0"
     react-native-keyboard-controller: "npm:1.18.5"
+    react-native-keychain: "npm:^10.0.0"
     react-native-marked: "npm:^7.0.2"
     react-native-mathjax-svg: "npm:^0.9.9"
     react-native-mmkv: "npm:^3.3.0"
@@ -15952,6 +15954,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-app-auth@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "react-native-app-auth@npm:8.1.0"
+  dependencies:
+    invariant: "npm:2.2.4"
+    react-native-base64: "npm:0.0.2"
+  peerDependencies:
+    react-native: ">=0.63.0"
+  checksum: 10c0/182689876a46252fdde6c89cedbc8ab33208b395c59323785b93727b3f033c225782ad47508eb4a875004fc5964514baa646d955bb992d0aef07914b75232e90
+  languageName: node
+  linkType: hard
+
+"react-native-base64@npm:0.0.2":
+  version: 0.0.2
+  resolution: "react-native-base64@npm:0.0.2"
+  checksum: 10c0/655e5638c30bc0af1ac649ba053e849a268f12d9657124b1418e27019cbf0f4141e5a93086ee640b46e90e5bb1003d640f38d55504b3637fcd72b7894ac1a30c
+  languageName: node
+  linkType: hard
+
 "react-native-code-highlighter@npm:^1.3.0":
   version: 1.3.0
   resolution: "react-native-code-highlighter@npm:1.3.0"
@@ -16078,6 +16099,13 @@ __metadata:
     react-native: "*"
     react-native-reanimated: ">=3.0.0"
   checksum: 10c0/708b8c299fdfc11749db4d84238330a2f04a07a92f40a5f0aa2870ffedb9e47c05455d50c3441a321f5cd5cacf7c936d5706e74cfb234a132e6c6c9ebb0d5e57
+  languageName: node
+  linkType: hard
+
+"react-native-keychain@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "react-native-keychain@npm:10.0.0"
+  checksum: 10c0/a632ad27e58264506d2b373d329a867f042fb014e8a78db3a63031e953d61b5c98066eed1be238ee6c186d3f213d0efaa2a26526fb3a1d36a624c4460e982230
   languageName: node
   linkType: hard
 

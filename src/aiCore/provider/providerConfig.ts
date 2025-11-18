@@ -5,6 +5,7 @@ import { cloneDeep } from 'lodash'
 
 import { isOpenAIChatCompletionOnlyModel } from '@/config/models'
 import { generateSignature } from '@/integration/cherryai'
+import { copilotAuthService } from '@/services/CopilotAuthService'
 import { loggerService } from '@/services/LoggerService'
 import { getProviderByModel } from '@/services/ProviderService'
 import type { Model, Provider } from '@/types/assistant'
@@ -252,14 +253,17 @@ export async function prepareSpecialProviderConfig(
   provider: Provider,
   config: ReturnType<typeof providerToAiSdkConfig>
 ) {
-  // todo
   switch (provider.id) {
-    // case 'copilot': {
-    //   const defaultHeaders = store.getState().copilot.defaultHeaders
-    //   const { token } = await window.api.copilot.getToken(defaultHeaders)
-    //   config.options.apiKey = token
-    //   break
-    // }
+    case 'copilot': {
+      // Get valid access token (will refresh if needed)
+      const token = await copilotAuthService.getValidAccessToken()
+      if (token) {
+        config.options.apiKey = token
+      } else {
+        throw new Error('GitHub Copilot authentication required. Please login first.')
+      }
+      break
+    }
 
     case 'cherryai': {
       config.options.fetch = async (url, options) => {
